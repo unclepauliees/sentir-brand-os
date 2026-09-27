@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>sentir. Brand OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Single-world page: sentir. is crema by day, never nocturnal. Painted explicitly for any host theme. */
+:root {
+  color-scheme: light;
+  --crema: #F4ECE0;
+  --cafe: #2A1810;
+  --muted: #6E5A4C;
+  --arena: #D9C7AE;
+  --fpo: #E9DCC8;
+  --orquidea: #A13D6E;
+  --crema-soft: #CDBBA6; /* secondary text on café: ≥7:1 */
+
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --gutter: clamp(16px, 4.5vw, 56px);
+  --max: 1180px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+html { background: var(--crema); }
+body {
+  background: var(--crema);
+  color: var(--cafe);
+  font: 400 1rem/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scrollbar-color: var(--arena) var(--crema);
+}
+::selection { background: var(--cafe); color: var(--crema); }
+:focus-visible { outline: 2px solid var(--orquidea); outline-offset: 3px; border-radius: 4px; }
+a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+
+.wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+section { padding-block: clamp(72px, 10vw, 136px); border-top: 1px solid var(--arena); }
+
+/* ---------- type primitives ---------- */
+.wm { font-family: var(--display); font-style: italic; font-weight: 500; letter-spacing: -0.02em; white-space: nowrap; }
+.wm .dot { font-style: normal; color: var(--orquidea); display: inline-block; }
+.lbl { font: 500 .72rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .18em; color: var(--muted); }
+.h2 {
+  font: italic 500 clamp(2.4rem, 5.6vw, 4.25rem)/1.02 var(--display);
+  letter-spacing: -0.025em; margin: 0; text-wrap: balance;
+}
+.en { color: var(--muted); font-size: .95rem; margin: .5rem 0 0; }
+.lede { font-size: 1.125rem; max-width: 58ch; margin: 1.5rem 0 0; text-wrap: pretty; }
+.lede + .en { max-width: 62ch; }
+.head { display: grid; gap: 0; margin-bottom: clamp(40px, 6vw, 72px); max-width: 780px; }
+
+/* ---------- arch image slot ---------- */
+.arch {
+  position: relative; background: var(--fpo); border: 1px solid var(--arena);
+  border-radius: 100vmax 100vmax 6px 6px; aspect-ratio: 3 / 4; max-width: 100%;
+  display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
+}
+.arch::before { /* the doorway moulding */
+  content: ""; position: absolute; inset: 12px; border: 1px solid var(--arena);
+  border-radius: inherit; pointer-events: none;
+}
+.arch figcaption {
+  position: relative; font: 400 .72rem/1.5 var(--mono); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); text-align: center; padding: 0 12% 30px;
+}
+
+/* ---------- hero ---------- */
+.hero { border-top: 0; padding-block: clamp(40px, 6vw, 72px) clamp(72px, 9vw, 120px); }
+.topbar { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding-bottom: clamp(48px, 8vw, 96px); }
+.hero-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: clamp(32px, 6vw, 88px); align-items: end; }
+.hero .wm { font-size: clamp(4.75rem, 15vw, 11rem); line-height: .86; display: block; margin-left: -.04em; }
+.hero .wm .dot { transform-origin: 50% 78%; }
+.hero-line { font: italic 500 clamp(1.6rem, 3vw, 2.3rem)/1.15 var(--display); letter-spacing: -0.02em; margin: clamp(28px, 4vw, 44px) 0 0; }
+.hero-copy { max-width: 46ch; margin: 1.25rem 0 0; font-size: 1.06rem; }
+.hero-copy + .en { max-width: 52ch; }
+.status { margin-top: 2rem; padding-top: 1.1rem; border-top: 1px solid var(--arena); max-width: 60ch; font-size: .82rem; color: var(--muted); }
+.status strong { color: var(--cafe); font-weight: 600; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero .wm .dot { animation: latido 1.6s var(--ease) .7s 1 both; }
+  .hero .wm:hover .dot { animation: latido2 1.2s var(--ease) 1 both; }
+}
+@keyframes latido { 0%,100% { transform: scale(1); } 22% { transform: scale(1.32); } 44% { transform: scale(.96); } 62% { transform: scale(1.12); } }
+@keyframes latido2 { 0%,100% { transform: scale(1); } 22% { transform: scale(1.32); } 44% { transform: scale(.96); } 62% { transform: scale(1.12); } }
+
+/* ---------- el punto ---------- */
+.punto-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+.anatomy { background: var(--fpo); border: 1px solid var(--arena); border-radius: 14px; padding: clamp(28px, 5vw, 56px); }
+.anatomy .wm { font-size: clamp(3.5rem, 9vw, 6.5rem); line-height: 1; }
+.anatomy-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--arena); }
+.anatomy-notes p { margin: .35rem 0 0; font-size: .9rem; }
+.uses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.use { display: grid; gap: 12px; justify-items: center; text-align: center; }
+.use .tile { width: 100%; aspect-ratio: 1; display: grid; place-items: center; }
+.use p { margin: 0; font-size: .82rem; color: var(--muted); }
+.t-fav { background: var(--crema); border: 1px solid var(--arena); border-radius: 6px; }
+.t-fav i { width: 26%; aspect-ratio: 1; border-radius: 50%; background: var(--orquidea); }
+.t-app { background: var(--cafe); border-radius: 22%; }
+.t-app i { width: 24%; aspect-ratio: 1; border-radius: 50%; background: var(--orquidea); }
+.t-seal svg { width: 100%; height: auto; display: block; }
+.rules-h { margin: 44px 0 16px; }
+.donts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.dont { border: 1px solid var(--arena); border-radius: 12px; padding: 22px 12px 14px; display: grid; gap: 14px; justify-items: center; position: relative; overflow: hidden; }
+.dont .wm { font-size: 2rem; line-height: 1; }
+.dont::after { content: ""; position: absolute; left: -10%; right: -10%; top: 38%; height: 1px; background: var(--muted); transform: rotate(-14deg); opacity: .55; }
+.d-outline .wm { color: transparent; -webkit-text-stroke: 1px var(--cafe); }
+.d-grad .wm { background: linear-gradient(90deg, var(--orquidea), #D98B5F); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.d-tilt .wm { display: inline-block; transform: rotate(-9deg); }
+.d-caps .wm { text-transform: uppercase; font-size: 1.55rem; letter-spacing: .02em; }
+
+/* ---------- color ---------- */
+.swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.sw { display: grid; grid-template-rows: auto 1fr; border-radius: 12px; overflow: hidden; border: 1px solid var(--arena); background: var(--crema); }
+.sw .chip { aspect-ratio: 3 / 4; display: flex; align-items: flex-end; padding: 14px; }
+.sw .chip span { font: 500 .7rem/1 var(--mono); letter-spacing: .08em; }
+.sw .meta { padding: 14px 14px 16px; display: grid; gap: 6px; align-content: start; }
+.sw h3 { font: italic 500 1.4rem/1 var(--display); letter-spacing: -0.02em; margin: 0; }
+.sw p { margin: 0; font-size: .82rem; line-height: 1.45; }
+.sw .ratio { font: 400 .72rem/1.4 var(--mono); letter-spacing: .06em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.color-rule { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--arena); }
+.color-rule p { margin: .45rem 0 0; font-size: .92rem; max-width: 36ch; }
+.warn { color: var(--orquidea); }
+
+/* ---------- type ---------- */
+.specimen { display: grid; grid-template-columns: 220px 1fr; gap: 16px 48px; padding-block: 34px; border-top: 1px solid var(--arena); align-items: baseline; }
+.specimen:last-child { border-bottom: 1px solid var(--arena); }
+.specimen dl { margin: 10px 0 0; display: grid; gap: 4px; font: 400 .72rem/1.5 var(--mono); color: var(--muted); letter-spacing: .04em; }
+.s-display { font: italic 500 clamp(2.6rem, 6.4vw, 5.25rem)/1 var(--display); letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
+.s-mono { font: 500 clamp(.85rem, 1.4vw, 1rem)/1.9 var(--mono); letter-spacing: .22em; text-transform: uppercase; margin: 0; }
+.s-mono span { color: var(--muted); }
+.s-body { font-size: 1.125rem; max-width: 56ch; margin: 0; }
+.s-body + .en { max-width: 60ch; }
+
+/* ---------- la casa ---------- */
+.casa { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--cafe); }
+.casa li { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.4fr) minmax(0, .8fr); gap: 12px 40px; padding-block: 26px; border-bottom: 1px solid var(--arena); align-items: baseline; }
+.lockup { font-family: var(--display); font-size: clamp(1.6rem, 3.2vw, 2.4rem); line-height: 1.05; letter-spacing: -0.02em; white-space: nowrap; }
+.lockup .wm { font-weight: 500; }
+.lockup em { font-weight: 400; }
+.lockup-demo { display: flex; align-items: baseline; gap: 28px; flex-wrap: wrap; margin-bottom: 40px; }
+.lockup-demo .lockup { font-size: clamp(2.4rem, 6vw, 4.25rem); }
+.lockup-demo .lockup em { margin-left: .22em; }
+.casa p { margin: 0; font-size: .98rem; }
+.casa .en { font-size: .86rem; margin-top: .25rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+.tag { font: 500 .7rem/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; border: 1px solid var(--arena); border-radius: 999px; padding: 7px 10px; color: var(--muted); white-space: nowrap; }
+.tag.spine { background: var(--cafe); border-color: var(--cafe); color: var(--crema); }
+.casa li.out { opacity: 1; }
+.casa li.out .lockup { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+.casa-note { margin-top: 28px; font-size: .9rem; color: var(--muted); max-width: 70ch; }
+
+/* ---------- campaign (café band) ---------- */
+.band { background: var(--cafe); color: var(--crema); border-top: 0; }
+.band .lbl { color: var(--crema-soft); }
+.band .en { color: var(--crema-soft); }
+.camp-grid { display: grid; grid-template-columns: 1fr 340px; gap: clamp(40px, 7vw, 96px); align-items: end; }
+.camp-head { font: italic 500 clamp(3rem, 8.4vw, 6rem)/.95 var(--display); letter-spacing: -0.03em; margin: 0; text-wrap: balance; }
+.signoff { display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; margin-top: 36px; }
+.signoff p { font: italic 400 clamp(1.4rem, 2.6vw, 1.9rem)/1.1 var(--display); margin: 0; }
+.signoff .wm { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
+.band .arch { background: #3A251B; border-color: #5A4234; }
+.band .arch::before { border-color: #5A4234; }
+.band .arch figcaption { color: var(--crema-soft); }
+.lines { display: grid; margin-top: clamp(56px, 8vw, 96px); border-top: 1px solid #5A4234; }
+.lines div { display: grid; grid-template-columns: 220px 1fr; gap: 8px 48px; padding-block: 24px; border-bottom: 1px solid #5A4234; align-items: baseline; }
+.lines p { margin: 0; font: italic 500 clamp(1.4rem, 2.8vw, 2rem)/1.15 var(--display); letter-spacing: -0.015em; }
+.lines .en { font-family: var(--sans); font-style: normal; font-size: .88rem; margin-top: .35rem; letter-spacing: 0; }
+
+/* ---------- hallazgo ---------- */
+.hz-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); gap: clamp(36px, 6vw, 80px); align-items: center; }
+.card {
+  background: var(--cafe); color: var(--crema); border-radius: 16px; padding: clamp(24px, 4vw, 40px);
+  box-shadow: 0 30px 60px -30px rgba(42, 24, 16, .55), 0 8px 18px -10px rgba(42, 24, 16, .35);
+  display: grid; gap: 26px;
+}
+.card .lbl { color: var(--crema-soft); }
+.card-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.val { font: 500 clamp(2.8rem, 6vw, 4rem)/1 var(--mono); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin: 10px 0 0; }
+.val small { font-size: .32em; letter-spacing: .1em; color: var(--crema-soft); margin-left: .5em; }
+.range { margin-top: 18px; }
+.range svg { width: 100%; height: auto; display: block; overflow: visible; }
+.card hr { border: 0; border-top: 1px solid #5A4234; margin: 0; }
+.card .read { margin: 8px 0 0; font-size: 1rem; }
+.card .meaning { font: italic 500 clamp(1.7rem, 3.4vw, 2.3rem)/1.08 var(--display); letter-spacing: -0.02em; margin: 10px 0 0; }
+.card .plain { margin: 12px 0 0; font-size: 1rem; max-width: 44ch; }
+.card .en { color: var(--crema-soft); font-size: .86rem; }
+.card-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.ex { font: 400 .7rem/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--crema-soft); }
+.hz-parts { display: grid; gap: 0; border-top: 1px solid var(--arena); }
+.hz-parts div { padding-block: 22px; border-bottom: 1px solid var(--arena); }
+.hz-parts h3 { font: italic 500 1.55rem/1.1 var(--display); letter-spacing: -0.02em; margin: 6px 0 6px; }
+.hz-parts p { margin: 0; font-size: .95rem; max-width: 42ch; }
+
+/* ---------- buttons ---------- */
+.pill {
+  font: 500 .98rem/1 var(--sans); border-radius: 999px; padding: 15px 24px; border: 1px solid transparent;
+  cursor: pointer; transition: transform .35s var(--ease), background-color .25s, box-shadow .35s var(--ease);
+  display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+}
+.pill-o { background: var(--orquidea); color: var(--crema); box-shadow: 0 10px 22px -12px rgba(161, 61, 110, .7); }
+.pill-o:hover { background: #8E3461; transform: translateY(-1px); }
+.pill-o:active { transform: translateY(0); }
+.pill-c { background: transparent; color: var(--cafe); border-color: var(--cafe); }
+.pill-c:hover { background: var(--cafe); color: var(--crema); }
+.pill-l { background: var(--crema); color: var(--cafe); }
+.pill-l:hover { background: #fff8ee; }
+.pill svg { width: 14px; height: 14px; }
+
+/* ---------- acquisition surface ---------- */
+.surface { border: 1px solid var(--arena); border-radius: 16px; overflow: hidden; background: var(--crema); }
+.surface-inner { display: grid; grid-template-columns: 1fr 300px; gap: clamp(32px, 6vw, 72px); padding: clamp(28px, 5vw, 64px); align-items: center; }
+.surface h3 { font: italic 500 clamp(2.4rem, 5.4vw, 4rem)/1 var(--display); letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
+.surface .copy { margin: 18px 0 0; font-size: 1.06rem; max-width: 44ch; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 0; padding: 18px var(--gutter); border-top: 1px solid var(--arena); background: var(--fpo); }
+.trust span { font: 500 .68rem/1.3 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--cafe); }
+.trust span + span::before { content: "·"; margin-inline: 14px; color: var(--muted); }
+.annot { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 28px; }
+.annot p { margin: .4rem 0 0; font-size: .88rem; max-width: 30ch; }
+
+/* ---------- image policy ---------- */
+.policy { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2.4vw, 28px); margin-top: clamp(40px, 6vw, 64px); }
+.policy-head { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: end; }
+.big-no { font: italic 500 clamp(3rem, 8vw, 6rem)/.92 var(--display); letter-spacing: -0.03em; margin: 0; }
+
+/* ---------- voice ---------- */
+.voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(32px, 6vw, 80px); }
+.vrow { display: contents; }
+.vcell { padding-block: 22px; border-top: 1px solid var(--arena); }
+.vcell .lbl { display: block; margin-bottom: 8px; }
+.say { font: italic 500 1.45rem/1.25 var(--display); letter-spacing: -0.015em; margin: 0; }
+.never { margin: 0; font-size: 1rem; }
+.never s { text-decoration-thickness: 1px; text-decoration-color: var(--orquidea); color: var(--muted); }
+.never .why { display: block; color: var(--muted); font-size: .88rem; margin-top: 6px; }
+.voice-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); padding-bottom: 12px; }
+.voice-cols p { margin: 0; }
+
+/* ---------- clinical ---------- */
+.clin { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 clamp(32px, 6vw, 80px); }
+.clin div { padding-block: 24px; border-top: 1px solid var(--arena); }
+.clin h3 { font: italic 500 1.5rem/1.1 var(--display); letter-spacing: -0.02em; margin: 6px 0 8px; }
+.clin p { margin: 0; font-size: .95rem; max-width: 48ch; }
+
+/* ---------- footer ---------- */
+footer { border-top: 1px solid var(--cafe); padding-block: 48px 64px; }
+.foot { display: grid; grid-template-columns: auto 1fr; gap: 24px 64px; align-items: start; }
+.foot .wm { font-size: 3rem; line-height: 1; }
+.foot p { margin: 0 0 .7rem; font-size: .85rem; color: var(--muted); max-width: 78ch; }
+.foot strong { color: var(--cafe); font-weight: 600; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 980px) {
+  .swatches { grid-template-columns: repeat(3, 1fr); }
+  .casa li { grid-template-columns: 1fr 1fr; }
+  .casa li .tags { grid-column: 1 / -1; justify-content: flex-start; }
+  .annot { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 820px) {
+  .hero-grid, .punto-grid, .camp-grid, .hz-grid, .surface-inner, .policy-head { grid-template-columns: 1fr; }
+  .hero .arch, .camp-grid .arch, .surface-inner .arch { max-width: 300px; }
+  .color-rule { grid-template-columns: 1fr; gap: 20px; }
+  .specimen, .lines div { grid-template-columns: 1fr; }
+  .voice-cols { display: none; }
+  .voice-grid, .clin { grid-template-columns: 1fr; }
+  .vcell.n { border-top: 0; padding-top: 0; }
+  .vcell .lbl.mob { display: block; }
+  .foot { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .donts { grid-template-columns: repeat(2, 1fr); }
+  .swatches { grid-template-columns: repeat(2, 1fr); }
+  .casa li { grid-template-columns: 1fr; }
+  .lockup { white-space: normal; }
+  .anatomy-notes, .annot { grid-template-columns: 1fr; }
+  .policy { grid-template-columns: 1fr 1fr; }
+  .policy .arch:nth-child(3) { display: none; }
+  .trust { flex-direction: column; align-items: center; }
+  .trust span + span::before { content: none; }
+}
+.lbl.mob { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <span class="lbl">Brand OS · v0.1</span>
+      <span class="lbl">Concepto · Para discusión</span>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <h1 style="margin:0"><span class="wm" aria-label="sentir.">sentir<span class="dot">.</span></span></h1>
+        <p class="hero-line">Sentir es fuerza.</p>
+        <p class="hero-copy">Una casa de salud para mujeres, en español primero. Crema y café de hogar, una sola orquídea colombiana, y una firma en itálica.</p>
+        <p class="en">A women’s health house, Spanish-first. Crema and espresso from home, a single Colombian orchid, and a signature in italic. US only, 50 states, via OpenLoop.</p>
+        <p class="status"><strong>Estado:</strong> concepto v0.1. Nombre de trabajo pendiente de aprobación del equipo de Karol G. No está afiliado ni aprobado por Karol G, Bichota ni Girl Power Inc.</p>
+      </div>
+      <figure class="arch" style="margin:0">
+        <figcaption>FPO · Mujer real, su cocina, luz de mañana · Sin retoque</figcaption>
+      </figure>
+    </div>
+  </div>
+</header>
+
+<!-- ================= EL PUNTO ================= -->
+<section id="punto">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2">El punto es la semilla.</h2>
+      <p class="lede">El punto es el momento en que paras y sientes. Siempre orquídea, siempre derecho, nunca se cae, nunca se cambia por un ícono.</p>
+      <p class="en">The period is the moment you stop and feel. Always orchid, always upright, never dropped, never swapped for an icon.</p>
+    </div>
+
+    <div class="punto-grid">
+      <div class="anatomy">
+        <span class="wm" aria-label="sentir.">sentir<span class="dot">.</span></span>
+        <div class="anatomy-notes">
+          <div>
+            <span class="lbl">La palabra</span>
+            <p>Bodoni Moda itálica 500, minúsculas, tracking −2%. Se lee como una firma.</p>
+          </div>
+          <div>
+            <span class="lbl">El punto</span>
+            <p>Derecho, no itálico. Orquídea #A13D6E. Es la única parte de la marca con color.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="lbl">El punto, solo</span>
+        <div class="uses" style="margin-top:16px">
+          <div class="use">
+            <div class="tile t-fav" aria-hidden="true"><i></i></div>
+            <p>Favicon</p>
+          </div>
+          <div class="use">
+            <div class="tile t-app" aria-hidden="true"><i></i></div>
+            <p>Ícono de app</p>
+          </div>
+          <div class="use t-seal">
+            <div class="tile" aria-hidden="true">
+              <svg viewBox="0 0 120 120">
+                <defs><path id="ring" d="M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0"/></defs>
+                <circle cx="60" cy="60" r="57" fill="none" stroke="#D9C7AE" stroke-width="1"/>
+                <circle cx="60" cy="60" r="31" fill="none" stroke="#D9C7AE" stroke-width="1"/>
+                <text fill="#6E5A4C" style="font:500 7.4px 'DM Mono', monospace; letter-spacing:2.6px"><textPath href="#ring">SENTIR ES FUERZA · SENTIR ES FUERZA ·</textPath></text>
+                <circle cx="60" cy="60" r="9" fill="#A13D6E"/>
+              </svg>
+            </div>
+            <p>Sello de empaque</p>
+          </div>
+        </div>
+
+        <p class="lbl rules-h">Nunca</p>
+        <div class="donts">
+          <div class="dont d-outline"><span class="wm">sentir.</span><span class="lbl">Contorno</span></div>
+          <div class="dont d-grad"><span class="wm">sentir.</span><span class="lbl">Degradado</span></div>
+          <div class="dont d-tilt"><span class="wm">sentir.</span><span class="lbl">Inclinado</span></div>
+          <div class="dont d-caps"><span class="wm">sentir.</span><span class="lbl">Mayúsculas</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COLOR ================= -->
+<section id="color">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2">Papel, café y una orquídea.</h2>
+      <p class="lede">La crema es el lienzo, nunca blanco clínico. El café lleva el texto y las tarjetas oscuras. La orquídea aparece una vez por vista.</p>
+      <p class="en">Crema is the canvas, never clinical white. Café carries type and dark cards. Orchid appears once per view.</p>
+    </div>
+
+    <div class="swatches">
+      <div class="sw">
+        <div class="chip" style="background:var(--crema);border-bottom:1px solid var(--arena)"><span style="color:var(--cafe)">#F4ECE0</span></div>
+        <div class="meta"><h3>Crema</h3><p>Lienzo. Papel cálido.</p><span class="ratio">--crema</span></div>
+      </div>
+      <div class="sw">
+        <div class="chip" style="background:var(--cafe)"><span style="color:var(--crema)">#2A1810</span></div>
+        <div class="meta"><h3>Café</h3><p>Texto y superficie oscura.</p><span class="ratio">14.5 : 1 sobre crema</span></div>
+      </div>
+      <div class="sw">
+        <div class="chip" style="background:var(--muted)"><span style="color:var(--crema)">#6E5A4C</span></div>
+        <div class="meta"><h3>Muted</h3><p>Texto secundario.</p><span class="ratio">5.6 : 1 sobre crema</span></div>
+      </div>
+      <div class="sw">
+        <div class="chip" style="background:var(--arena)"><span style="color:var(--cafe)">#D9C7AE</span></div>
+        <div class="meta"><h3>Arena</h3><p>Filetes, divisores, neutro.</p><span class="ratio">Nunca para texto</span></div>
+      </div>
+      <div class="sw">
+        <div class="chip" style="background:var(--fpo)"><span style="color:var(--cafe)">#E9DCC8</span></div>
+        <div class="meta"><h3>FPO</h3><p>Relleno de espacio de imagen.</p><span class="ratio">Muted 4.8 : 1 encima</span></div>
+      </div>
+      <div class="sw">
+        <div class="chip" style="background:var(--orquidea)"><span style="color:var(--crema)">#A13D6E</span></div>
+        <div class="meta"><h3>Orquídea</h3><p>La única señal.</p><span class="ratio">5.3 : 1 sobre crema</span></div>
+      </div>
+    </div>
+
+    <div class="color-rule">
+      <div>
+        <span class="lbl">Una vez por vista</span>
+        <p>El punto, el CTA principal o una palabra resaltada. Uno, no los tres. Nunca como fondo de sección.</p>
+      </div>
+      <div>
+        <span class="lbl">Sobre café</span>
+        <p><span class="warn">Orquídea sobre café es 2.8 : 1.</span> Ahí la orquídea solo vive como el punto del logo o como botón con texto crema, nunca como texto.</p>
+      </div>
+      <div>
+        <span class="lbl">Nunca</span>
+        <p>Azul clínico, negro nocturno, blanco puro. Si una vista se siente de hospital o de discoteca, no es sentir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TYPE ================= -->
+<section id="tipo">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2">Una firma, una etiqueta, una voz.</h2>
+      <p class="en">Three faces, three jobs. The display signs; the mono labels findings; the sans talks.</p>
+    </div>
+
+    <div class="specimen">
+      <div>
+        <span class="lbl">Display</span>
+        <dl><dt>Bodoni Moda Italic</dt><dd style="margin:0">500 · tracking −1.5 a −2.5%</dd></dl>
+      </div>
+      <p class="s-display">Cuídate como cuidas a todos.</p>
+    </div>
+    <div class="specimen">
+      <div>
+        <span class="lbl">Hallazgos y etiquetas</span>
+        <dl><dt>DM Mono</dt><dd style="margin:0">400 / 500 · mayúsculas · +14 a +28%</dd><dd style="margin:0">Continuidad IAM con b healthy y Fenty Wellness</dd></dl>
+      </div>
+      <p class="s-mono">Ferritina · 11 ng/mL <span>· Rango 15–150</span></p>
+    </div>
+    <div class="specimen">
+      <div>
+        <span class="lbl">Texto</span>
+        <dl><dt>Instrument Sans</dt><dd style="margin:0">400 / 500 / 600</dd></dl>
+      </div>
+      <div>
+        <p class="s-body">Hablamos de tú, sin prisa. El español va primero; el inglés vive debajo, nunca en su lugar. Decimos lo que cuesta, lo que sabemos y lo que todavía no.</p>
+        <p class="en">We speak in tú, unhurried. Spanish leads; English sits beneath it, never replaces it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LA CASA ================= -->
+<section id="casa">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2">La casa y sus cuartos.</h2>
+      <p class="lede">Cada línea es un cuarto de la misma casa: artículo en español más el dominio del cuerpo, en itálica, después de la marca.</p>
+      <p class="en">Each line is a room in one house: Spanish article plus body domain, set in italic after the wordmark.</p>
+    </div>
+
+    <div class="lockup-demo">
+      <span class="lockup"><span class="wm">sentir<span class="dot">.</span></span><em>La Piel</em></span>
+      <span class="lbl">Lockup · la marca primero, el cuarto en itálica después</span>
+    </div>
+    <ul class="casa">
+      <li>
+        <span class="lockup"><em>La Mente</em></span>
+        <div><p>Terapia bilingüe.</p><p class="en">Bilingual therapy.</p></div>
+        <div class="tags"><span class="tag spine">Motor de confianza</span></div>
+      </li>
+      <li>
+        <span class="lockup"><em>La Base</em></span>
+        <div><p>Diagnóstico de salud integral y nutracéuticos personalizados.</p><p class="en">Whole-health diagnostics and personalized nutraceuticals.</p></div>
+        <div class="tags"><span class="tag spine">Motor económico</span></div>
+      </li>
+      <li>
+        <span class="lockup"><em>La Piel</em></span>
+        <div><p>Tono y manchas. Formulario para melasma.</p><p class="en">Tone and dark spots. Melasma formulary.</p></div>
+        <div class="tags"><span class="tag">Línea héroe de conversión</span></div>
+      </li>
+      <li>
+        <span class="lockup"><em>El Pelo</em></span>
+        <div><p>Caída del pelo en mujeres.</p><p class="en">Women’s hair loss.</p></div>
+        <div class="tags"></div>
+      </li>
+      <li>
+        <span class="lockup"><em>El Descanso</em></span>
+        <div><p>Anillo de sueño más terapia.</p><p class="en">Sleep ring plus therapy.</p></div>
+        <div class="tags"></div>
+      </li>
+      <li>
+        <span class="lockup"><em>La Intimidad</em></span>
+        <div><p>Bienestar sexual recetado por clínicos. Solo mujeres.</p><p class="en">Clinician-prescribed sexual wellness. Women only.</p></div>
+        <div class="tags"><span class="tag">18+</span><span class="tag">Intake separado</span></div>
+      </li>
+      <li class="out">
+        <span class="lockup">GLP-1 / peso</span>
+        <div><p>Fuera de la casa. Contradice su postura pública contra el retoque.</p><p class="en">Excluded. Contradicts her public anti-retouching stance.</p></div>
+        <div class="tags"><span class="tag">Excluido</span></div>
+      </li>
+    </ul>
+    <p class="casa-note">El punto nunca cambia de color. Cuando las líneas van en lista, la marca aparece una sola vez arriba y cada cuarto se nombra solo, para que la orquídea no se repita.</p>
+  </div>
+</section>
+
+<!-- ================= CAMPAIGN ================= -->
+<section class="band" id="campana">
+  <div class="wrap">
+    <div class="camp-grid">
+      <div>
+                <h2 class="camp-head">Todas tenemos una Carolina.</h2>
+        <div class="signoff">
+          <p>Ya le toca a ella.</p>
+          <span class="wm" aria-label="sentir.">sentir<span class="dot">.</span></span>
+        </div>
+        <p class="en" style="margin-top:22px;max-width:52ch">Every one of us has a Carolina: the woman who takes care of everyone but herself. Her turn has come. Always signed by the wordmark.</p>
+      </div>
+      <figure class="arch" style="margin:0">
+        <figcaption>FPO · Ella, en su casa, sin maquillaje · Casting real</figcaption>
+      </figure>
+    </div>
+
+    <div class="lines">
+      <div>
+        <span class="lbl">Línea de marca</span>
+        <div><p>Sentir es fuerza.</p><p class="en">Feeling is strength.</p></div>
+      </div>
+      <div>
+        <span class="lbl">Manifiesto</span>
+        <div><p>Sentir no es debilidad. Ignorarlo, sí.</p><p class="en">Feeling isn’t weakness. Ignoring it is.</p></div>
+      </div>
+      <div>
+        <span class="lbl">Adquisición</span>
+        <div><p>Cuídate como cuidas a todos.</p><p class="en">Take care of yourself the way you take care of everyone.</p></div>
+      </div>
+    </div>
+    <p class="en" style="margin-top:28px;max-width:78ch">“Carolina” es lenguaje de campaña, nunca marca registrada: choca con su restaurante Carolina y con las marcas de belleza y fragancia de Carolina Herrera.</p>
+  </div>
+</section>
+
+<!-- ================= HALLAZGO ================= -->
+<section id="hallazgo">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2">El hallazgo es la prueba.</h2>
+      <p class="lede">La unidad atómica de sentir: un valor medido, la lectura de un clínico y lo que significa, dicho en español claro.</p>
+      <p class="en">The atomic proof unit: a measured value, a clinician’s read, and its plain-Spanish meaning, on a café card.</p>
+    </div>
+
+    <div class="hz-grid">
+      <article class="card" aria-label="Ejemplo de hallazgo">
+        <div class="card-top">
+          <span class="lbl">Hallazgo · La Base</span>
+          <span class="lbl">Panel de hierro</span>
+        </div>
+        <div>
+          <span class="lbl">Ferritina</span>
+          <p class="val">11<small>NG/ML</small></p>
+          <div class="range" aria-label="Valor 11, rango de referencia 15 a 150 nanogramos por mililitro">
+            <svg viewBox="0 0 400 44" role="img" aria-hidden="true">
+              <line x1="0" y1="14" x2="400" y2="14" stroke="#5A4234" stroke-width="2"/>
+              <line x1="40" y1="14" x2="400" y2="14" stroke="#CDBBA6" stroke-width="2"/>
+              <line x1="40" y1="6" x2="40" y2="22" stroke="#CDBBA6" stroke-width="1"/>
+              <circle cx="29" cy="14" r="6" fill="#F4ECE0"/>
+              <text x="40" y="40" fill="#CDBBA6" text-anchor="middle" style="font:400 10px 'DM Mono', monospace; letter-spacing:1px">15</text>
+              <text x="400" y="40" fill="#CDBBA6" text-anchor="end" style="font:400 10px 'DM Mono', monospace; letter-spacing:1px">150 · RANGO</text>
+            </svg>
+          </div>
+        </div>
+        <hr>
+        <div>
+          <span class="lbl">Lectura clínica</span>
+          <p class="read">Reservas de hierro bajas. Explica el cansancio y puede sumar a la caída del pelo. Tu clínica recomienda hierro y repetir el panel en 12 semanas.</p>
+        </div>
+        <hr>
+        <div>
+          <span class="lbl">Lo que significa</span>
+          <p class="meaning">Ese cansancio tiene un número.</p>
+          <p class="plain">Tu cuerpo tiene poco hierro guardado. Por eso te sientes agotada aunque duermas. No es flojera; es algo que se puede tratar.</p>
+          <p class="en">That tiredness has a number.</p>
+        </div>
+        <div class="card-foot">
+          <button class="pill pill-l" type="button">Hablar con alguien</button>
+          <span class="ex">Ejemplo ilustrativo · No es un resultado real</span>
+        </div>
+      </article>
+
+      <div class="hz-parts">
+        <div>
+          <span class="lbl">Valor medido</span>
+          <h3>El número, sin adorno.</h3>
+          <p>DM Mono, con unidad y rango. Se muestra dónde cae, no se interpreta aquí.</p>
+        </div>
+        <div>
+          <span class="lbl">Lectura clínica</span>
+          <h3>Lo que ve su clínico.</h3>
+          <p>Una o dos frases, con el siguiente paso. Siempre de un clínico, nunca generado sin revisión.</p>
+        </div>
+        <div>
+          <span class="lbl">Lo que significa</span>
+          <h3>En español de la casa.</h3>
+          <p>La frase que ella le diría a su hermana. Bodoni itálica. Aquí vive la emoción.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ACQUISITION SURFACE ================= -->
+<section id="superficie">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2">Cómo se ve una puerta de entrada.</h2>
+      <p class="lede">Toda superficie de adquisición lleva el mismo esqueleto: una imagen en arco, un titular en itálica, un CTA directo y la fila de confianza.</p>
+      <p class="en">Every acquisition surface: an arched image, an italic headline, one direct CTA, and the trust row.</p>
+    </div>
+
+    <div class="surface">
+      <div class="surface-inner">
+        <div>
+          <h3>Cuídate como cuidas a todos.</h3>
+          <p class="copy">Empieza con tu base: un panel completo, leído por un clínico, explicado en tu idioma.</p>
+          <p class="en">Start with your base: a full panel, read by a clinician, explained in your language.</p>
+          <div class="ctas">
+            <button class="pill pill-o" type="button">Empezar a sentir
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+            </button>
+            <button class="pill pill-c" type="button">Hablar con alguien</button>
+          </div>
+        </div>
+        <figure class="arch" style="margin:0">
+          <figcaption>FPO · Dos hermanas, sala, tarde · Sin retoque</figcaption>
+        </figure>
+      </div>
+      <div class="trust" role="list">
+        <span role="listitem">Tu información es tuya</span>
+        <span role="listitem">Precios claros, sin seguro</span>
+        <span role="listitem">50 estados</span>
+      </div>
+    </div>
+
+    <div class="annot">
+      <div><span class="lbl">Orquídea: 1</span><p>Solo el CTA principal. Sin logo en esta vista, para que no compita.</p></div>
+      <div><span class="lbl">CTAs</span><p>Píldora, directo, cálido: “Empezar a sentir”, “Hacer mi base”, “Hablar con alguien”.</p></div>
+      <div><span class="lbl">Fila de confianza</span><p>Obligatoria en toda superficie de adquisición. DM Mono, siempre las tres.</p></div>
+      <div><span class="lbl">Imagen</span><p>Arco de puerta colonial, filete arena, pie FPO en DM Mono.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IMAGE POLICY ================= -->
+<section id="imagen">
+  <div class="wrap">
+    <div class="policy-head">
+      <p class="big-no">Cero retoque.</p>
+      <div>
+        <p class="lede" style="margin:0">Ni en la cara, ni en el cuerpo. Mujeres reales, casas reales, luz real. La política se ve en cada pieza, no vive en una nota al pie.</p>
+        <p class="en">Zero face or body retouching. Non-negotiable, and visible in every artifact.</p>
+      </div>
+    </div>
+    <div class="policy">
+      <figure class="arch" style="margin:0"><figcaption>FPO · Cocina · Luz de ventana</figcaption></figure>
+      <figure class="arch" style="margin:0"><figcaption>FPO · Recámara · Mañana</figcaption></figure>
+      <figure class="arch" style="margin:0"><figcaption>FPO · Balcón · Atardecer</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VOICE / GUARDRAILS ================= -->
+<section id="voz">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2">Lo que decimos, y lo que nunca.</h2>
+      <p class="lede">Español primero, de tú, cálido y sin prisa. Estas líneas no se negocian en ningún canal.</p>
+      <p class="en">Spanish-first, tú-form, warm and unhurried. These lines hold in every channel.</p>
+    </div>
+
+    <div class="voice-cols"><span class="lbl">Decimos</span><span class="lbl">Nunca</span></div>
+    <div class="voice-grid">
+      <div class="vcell"><span class="lbl mob">Decimos</span><p class="say">Manchas, melasma, tono parejo.</p></div>
+      <div class="vcell n"><span class="lbl mob">Nunca</span><p class="never"><s>blanqueamiento</s> · <s>aclarar</s> · <s>piel más clara</s><span class="why">La Piel trata manchas y empareja el tono. Nunca aclara.</span></p></div>
+
+      <div class="vcell"><p class="say">Sentir es fuerza.</p></div>
+      <div class="vcell n"><p class="never"><s>tusa</s> · <s>despecho</s> · <s>rupturas</s><span class="why">Ni insinuar que Karol G está en tratamiento, a menos que ella lo diga.</span></p></div>
+
+      <div class="vcell"><p class="say">sentir. — con la firma, siempre.</p></div>
+      <div class="vcell n"><p class="never"><s>títulos de canciones o álbumes</s> · <s>Bichota</s> · <s>by Karol G</s><span class="why">Hasta que su equipo apruebe PI y lenguaje de respaldo.</span></p></div>
+
+      <div class="vcell"><p class="say">A tu ritmo. Con alguien a tu lado.</p></div>
+      <div class="vcell n"><p class="never"><s>heal fast</s> · <s>glow-up en 30 días</s> · <s>antes / después</s> · <s>peso</s><span class="why">Sin cuerpos de antes y después. Sin lenguaje de peso.</span></p></div>
+
+      <div class="vcell"><p class="say">La Intimidad, 18+.</p></div>
+      <div class="vcell n"><p class="never"><s>promoción cruzada por tour, merch o canales de fans</s><span class="why">Intake separado de La Mente. Puerta de edad en cada entrada.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLINICAL ================= -->
+<section id="clinico">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2">Protección clínica.</h2>
+      <p class="en">Clinical guardrails. These carry into the deck appendix.</p>
+    </div>
+    <div class="clin">
+      <div>
+        <span class="lbl">La Piel</span>
+        <h3>Hidroquinona con tope.</h3>
+        <p>Límite duro de duración y retiro gradual documentado, por riesgo de ocronosis y rebote en tonos de piel intermedios y profundos.</p>
+      </div>
+      <div>
+        <span class="lbl">La Mente</span>
+        <h3>Protocolo de crisis.</h3>
+        <p>Protocolo de crisis y derivación bilingüe a líneas de crisis en cada sesión y cada canal.</p>
+      </div>
+      <div>
+        <span class="lbl">El Descanso</span>
+        <h3>Sin GLP-1.</h3>
+        <p>Solo vías de terapia y no GLP-1.</p>
+      </div>
+      <div>
+        <span class="lbl">Todas las líneas</span>
+        <h3>Receta con evaluación.</h3>
+        <p>Todo producto con receta requiere evaluación clínica. La disponibilidad varía por estado. Los medicamentos compuestos no están aprobados por la FDA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span class="wm" aria-label="sentir.">sentir<span class="dot">.</span></span>
+    <div>
+      <p><strong>Brand OS v0.1 · Concepto para discusión.</strong> Nombre de trabajo pendiente de aprobación del equipo de Karol G. No está afiliado ni aprobado por Karol G, Bichota ni Girl Power Inc.</p>
+      <p>“sentir.” requiere búsqueda de marca como marca compuesta con puntuación. “Carolina” se usa solo como lenguaje de campaña, nunca como marca registrada.</p>
+      <p>Imágenes: marcadores FPO. Valores del hallazgo: ejemplo ilustrativo, no datos de paciente.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
